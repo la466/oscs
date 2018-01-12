@@ -1,0 +1,6 @@
+Package Licenses
+
+Package: CodonW
+License: GNU General Public License version 2
+Description: CodonW freeware and is distributed under the conditions of the GNU General Public License version 2 which allows free distribution and modification but prevents the use of this code in commercial packages.
+URL: http://codonw.sourceforge.net/
