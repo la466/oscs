@@ -73,12 +73,19 @@ excess_plot <- function(frame) {
   ggplot(file) +
     geom_point(aes(x=gc, y=file[[col]], color=factor(sig))) +
     scale_y_continuous(limits = c(-200, 100)) +
-    scale_color_manual(values=c('blue', 'red', 'black')) +
+    scale_color_manual(name="", values=c('blue', 'red', 'black'), labels = c("Z > 0, p < 0.05", "Z < 0, p < 0.05", "p > 0.05")) +
     labs(x="GC", y='Z') +
     geom_hline(yintercept=0, lty=2) +
     geom_abline(intercept = coef(fit)[1], slope = coef(fit)[2]) +
     theme_Publication() +
-    theme(legend.position = "none")
+    theme(legend.justification=c(0,1), 
+          legend.position=c(0,0.26),
+          legend.background = element_blank(),
+          legend.key = element_blank(),
+          legend.direction='vertical',
+          legend.key.size = unit(0.6, 'lines'),
+          legend.text=element_text(size=8)
+    )
 
 }
 
@@ -91,7 +98,8 @@ excess_vioplot <- function(frame){
 
   file$padj <- p.adjust(file[[pcol]], method="fdr")
 
-  file$sig <- ifelse(file$padj < 0.05 & file[[col]] > 0, 0, 1)
+  file$sig <- ifelse(file$padj < 0.05 & file[[col]] > 0, 1, ifelse(file$padj < 0.05 & file[[col]] < 0, 2, 0))
+  file <- file[file$sig > 0,]
 
   library(ggplot2)
   ggplot(file, aes(factor(sig), gc)) +
@@ -99,8 +107,8 @@ excess_vioplot <- function(frame){
     geom_violin(aes(fill = factor(sig))) +
     geom_boxplot(width=.1, outlier.colour=NA) +
     scale_fill_manual(values=c('blue', 'red')) +
-    labs(y="GC", x='') +
-    scale_x_discrete(labels=c('Z > 0', 'Z \u2264 0')) +
+    labs(y="GC", x='Z score (p < 0.05)') +
+    scale_x_discrete(labels=c('Z > 0', 'Z < 0')) +
     theme(legend.position = "none")
 }
 
@@ -148,12 +156,20 @@ excess_codon_plot <- function(frame, codon, min=NULL, max=NULL) {
   ggplot(file) +
     geom_point(aes(x=gc, y=file[[col]], color=factor(sig)), size=0.8) +
     scale_y_continuous(limits=c(min,max), breaks=scales::pretty_breaks(n = 10)) +
-    scale_color_manual(values=c('blue', 'red', 'black')) +
+    scale_color_manual(name="", values=c('blue', 'red', 'black'), labels = c("Z > 0, p < 0.05", "Z < 0, p < 0.05", "p > 0.05")) +
     labs(x="GC", y='Z', title=title) +
     geom_hline(yintercept=0, lty=2) +
     geom_abline(intercept = coef(fit)[1], slope = coef(fit)[2]) +
     theme_Publication() +
-    theme(legend.position = "none")
+    theme(legend.justification=c(0,1), 
+          legend.position=c(0.7,1.12),
+          legend.background = element_blank(),
+          legend.key = element_blank(),
+          legend.direction='vertical',
+          legend.key.size = unit(0.6, 'lines'),
+          legend.text=element_text(size=8)
+    )
+  
 }
 
 # Get the minimum Z value for the stop codons
@@ -215,7 +231,8 @@ individual_codon_vioplot <- function(frame, codon, grouped=FALSE, count) {
 
   file$padj <- p.adjust(file[[pcol]], method="fdr")
 
-  file$sig <- ifelse(file[[col]] <= 0 | file$padj >= 0.05, 1, 0)
+  file$sig <- ifelse(file$padj < 0.05 & file[[col]] > 0, 1, ifelse(file$padj < 0.05 & file[[col]] < 0, 2, 0))
+  file <- file[file$sig > 0,]
 
   if(frame=="both"){
     title <- paste('Both ', codon, sep='')
@@ -229,8 +246,8 @@ individual_codon_vioplot <- function(frame, codon, grouped=FALSE, count) {
     geom_violin(aes(fill = factor(sig))) +
     geom_boxplot(width=.1, outlier.colour=NA) +
     scale_fill_manual(values=c('blue', 'red')) +
-    labs(y="GC", x='', title=title) +
-    scale_x_discrete(labels=c('Z > 0', 'Z \u2264 0')) +
+    labs(y="GC", x='Z score (p < 0.05)') +
+    scale_x_discrete(labels=c('Z > 0', 'Z < 0')) +
     theme(legend.position = "none")
 }
 
