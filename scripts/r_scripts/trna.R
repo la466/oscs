@@ -79,7 +79,7 @@ cost_osc_density_correlation_plot <- function(frame) {
   fit <- lm(file[[col]]~file$gc3)
   plot <- ggplot(file) +
     geom_point(aes(x=file$gc3, y=file[[col]]), size=1.5) +
-    labs(x="Genome GC3", y='Correlation (rho)') +
+    labs(x="Genome GC3", y=expression(paste(rho))) +
     geom_hline(yintercept=0, lty=2) +
     geom_abline(intercept = coef(fit)[1], slope = coef(fit)[2], col="red") +
     theme_Publication() +
@@ -87,8 +87,6 @@ cost_osc_density_correlation_plot <- function(frame) {
 
   return(plot)
 }
-
-
 
 
 
@@ -130,13 +128,12 @@ compress_tiff <- function(filepath){
 
 ## Run
 
-anticodon_repetoire_plot()
-anticodon_sparing_plot()
+# anticodon_repetoire_plot()
+# anticodon_sparing_plot()
 
 pdf('graphs/trna/gc3_osc_density_median_cost_correlation.pdf')
 cost_osc_density_correlation_plot('p1')
 dev.off()
-
 
 
 ## Combined plot
