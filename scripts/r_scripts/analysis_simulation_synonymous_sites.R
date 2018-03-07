@@ -246,7 +246,7 @@ individual_codon_vioplot <- function(frame, codon, grouped=FALSE, count) {
     geom_violin(aes(fill = factor(sig))) +
     geom_boxplot(width=.1, outlier.colour=NA) +
     scale_fill_manual(values=c('blue', 'red')) +
-    labs(y="GC", x='Z score (p < 0.05)') +
+    labs(y="GC", x='Z score (p < 0.05)', title=title) +
     scale_x_discrete(labels=c('Z > 0', 'Z < 0')) +
     theme(legend.position = "none")
 }
@@ -278,6 +278,8 @@ combined_stops_excess <- function(frame) {
 
   file$padj <- p.adjust(file[[pcol]], method="fdr")
 
+  cat("\n")
+  print(frame)
   print(cor.test(file$gc, file[[col]], method="spearman"))
   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,]))
   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,])/nrow(file)*100)
@@ -297,6 +299,9 @@ all_codons_excess <- function(frame, codon) {
 
   file$padj <- p.adjust(file[[pcol]], method="fdr")
 
+  cat("\n")
+  print(frame)
+  print(codon)
   print(cor.test(file$gc, file[[col]], method="spearman"))
   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,]))
   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,])/nrow(file)*100)
@@ -318,6 +323,7 @@ max = get_max_z()
 excess_individual_osc_plots(min, max)
 osc_vioplots()
 
+sink('outputs/r_outputs/synonymous_site_model.txt')
 combined_stops_excess('both')
 combined_stops_excess(1)
 combined_stops_excess(2)
@@ -345,3 +351,4 @@ all_codons_excess(2, 'TGA')
 all_codons_excess(2, 'TGC')
 all_codons_excess(2, 'TGG')
 all_codons_excess(2, 'TGT')
+sink()

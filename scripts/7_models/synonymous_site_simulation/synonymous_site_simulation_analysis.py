@@ -222,7 +222,7 @@ def analyse_counts(acc_codons, real_counts_dict, randomised_counts_dict, genome_
             # z = np.log(np.divide(real_counts_dict[frame][stop],np.mean(randomised_counts_dict[frame][stop])))
             z = (real_counts_dict[frame][codon] - np.mean(randomised_counts_dict[frame][codon])) / np.std(randomised_counts_dict[frame][codon])
             z_scores[frame][codon] = z
-            pvals[frame][codon] = scipy.stats.ttest_1samp(randomised_counts_dict[frame][codon], real_counts_dict[frame][codon])
+            pvals[frame][codon] = scipy.stats.norm.sf(abs(z))*2
 
 
     # Combine the stop codons
@@ -247,8 +247,8 @@ def analyse_counts(acc_codons, real_counts_dict, randomised_counts_dict, genome_
         # z = np.log(np.divide(real_totals[frame],np.mean(randomised_totals[frame])))
         z = (real_totals[frame] - np.mean(randomised_totals[frame])) / np.std(randomised_totals[frame])
 
-        ttest = scipy.stats.ttest_1samp(randomised_totals[frame], real_totals[frame])
-        z_totals[frame] = [z,ttest]
+        p = scipy.stats.norm.sf(abs(z))*2
+        z_totals[frame] = [z,p]
 
 
     return(z_scores, pvals, z_totals)
@@ -340,7 +340,7 @@ def write_stop_codons(results):
             output_line = '%s,%s,%s' % (acc, gc, gc3)
             for frame in z_scores:
                 for stop in sorted(stop_codons):
-                    output_line += ',%s,%s' % (z_scores[frame][stop], pvals[frame][stop].pvalue)
+                    output_line += ',%s,%s' % (z_scores[frame][stop], pvals[frame][stop])
             output_line += '\n'
             output_file.write(output_line)
 
@@ -351,7 +351,7 @@ def write_combined_stops(results):
     output_file = open(output_analysis_directory + 'combined_stops.csv', 'w')
     header = 'acc,gc,gc3'
     for frame in frames:
-        header += ',osc_%s_z,osc_%s_ttest,osc_%s_pval' % (frame, frame,frame)
+        header += ',osc_%s_z,osc_%s_pval' % (frame,frame)
     header += '\n'
     output_file.write(header)
 
@@ -369,7 +369,7 @@ def write_combined_stops(results):
 
             output_line = '%s,%s,%s' % (acc, gc, gc3)
             for frame in frames:
-                output_line += ',%s,%s,%s' % (combined_zs[frame][0], combined_zs[frame][1].statistic, combined_zs[frame][1].pvalue)
+                output_line += ',%s,%s' % (combined_zs[frame][0], combined_zs[frame][1])
 
             output_line += '\n'
             output_file.write(output_line)
@@ -403,7 +403,7 @@ def write_all_codons(results):
             output_line = '%s,%s,%s' % (acc, gc, gc3)
             for frame in z_scores:
                 for codon in sorted(codon_list):
-                    output_line += ',%s,%s' % (z_scores[frame][codon], pvals[frame][codon].pvalue)
+                    output_line += ',%s,%s' % (z_scores[frame][codon], pvals[frame][codon])
             output_line += '\n'
             output_file.write(output_line)
 

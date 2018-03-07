@@ -67,10 +67,9 @@ excess_plot <- function(model, frame, main=NULL) {
 
   file$padj <- p.adjust(file[[pcol]], method="fdr")
   file$sig <- ifelse(file$padj < 0.05 & file[[col]] > 0, 0, ifelse(file$padj < 0.05 & file[[col]] < 0, 1, 2))
-
   fit <- lm(file[[col]]~file$gc)
 
-  file$sig <- as.factor(file$sig)
+  
 
 
   library(ggplot2)
@@ -97,6 +96,7 @@ excess_plot <- function(model, frame, main=NULL) {
 
   plot
 }
+
 
 # Violin plot for genome GC content grouped by significant excesses or not
 excess_vioplot <- function(model, frame){
@@ -309,6 +309,8 @@ combined_stops_excess <- function(model, frame) {
 
   file$padj <- p.adjust(file[[pcol]], method="fdr")
 
+  cat('\n')
+  print(frame)
   print(cor.test(file$gc, file[[col]], method="spearman"))
   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,]))
   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,])/nrow(file)*100)
@@ -331,6 +333,9 @@ all_codons_excess <- function(model, frame, codon) {
 
   file$padj <- p.adjust(file[[pcol]], method="fdr")
 
+  cat('\n')
+  print(frame)
+  print(codon)
   print(cor.test(file$gc, file[[col]], method="spearman"))
   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,]))
   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,])/nrow(file)*100)
@@ -348,11 +353,10 @@ excess_ind_plots("53mm")
 excess_plots("23mm", '53mm')
 excess_individual_osc_plots('23mm', get_min_z('23mm'), get_max_z('23mm'))
 excess_individual_osc_plots('53mm', get_min_z('53mm'), get_max_z('53mm'))
-combined_stops_excess("53mm", 2)
-all_codons_excess("23mm", 1, 'TGA')
 
 osc_vioplots()
 
+sink('outputs/r_outputs/23mm_model.txt')
 combined_stops_excess('23mm', 'both')
 combined_stops_excess('23mm', 1)
 combined_stops_excess('23mm', 2)
@@ -380,7 +384,9 @@ all_codons_excess("23mm", 2, 'TGA')
 all_codons_excess("23mm", 2, 'TGC')
 all_codons_excess("23mm", 2, 'TGG')
 all_codons_excess("23mm", 2, 'TGT')
+sink()
 
+sink('outputs/r_outputs/53mm_model.txt')
 combined_stops_excess('53mm', 'both')
 combined_stops_excess('53mm', 1)
 combined_stops_excess('53mm', 2)
@@ -408,3 +414,4 @@ all_codons_excess("53mm", 2, 'TGA')
 all_codons_excess("53mm", 2, 'TGC')
 all_codons_excess("53mm", 2, 'TGG')
 all_codons_excess("53mm", 2, 'TGT')
+sink()

@@ -78,7 +78,7 @@ excess_plot <- function(frame) {
     geom_hline(yintercept=0, lty=2) +
     geom_abline(intercept = coef(fit)[1], slope = coef(fit)[2]) +
     theme_Publication() +
-    theme(legend.justification=c(0,1), 
+    theme(legend.justification=c(0,1),
           legend.position=c(0,0.26),
           legend.background = element_blank(),
           legend.key = element_blank(),
@@ -161,7 +161,7 @@ excess_codon_plot <- function(frame, codon, min=NULL, max=NULL) {
     geom_hline(yintercept=0, lty=2) +
     geom_abline(intercept = coef(fit)[1], slope = coef(fit)[2]) +
     theme_Publication() +
-    theme(legend.justification=c(0,1), 
+    theme(legend.justification=c(0,1),
           legend.position=c(0.7,1.12),
           legend.background = element_blank(),
           legend.key = element_blank(),
@@ -169,7 +169,7 @@ excess_codon_plot <- function(frame, codon, min=NULL, max=NULL) {
           legend.key.size = unit(0.6, 'lines'),
           legend.text=element_text(size=8)
     )
-  
+
 }
 
 # Get the minimum Z value for the stop codons
@@ -246,7 +246,7 @@ individual_codon_vioplot <- function(frame, codon, grouped=FALSE, count) {
     geom_violin(aes(fill = factor(sig))) +
     geom_boxplot(width=.1, outlier.colour=NA) +
     scale_fill_manual(values=c('blue', 'red')) +
-    labs(y="GC", x='Z score (p < 0.05)') +
+    labs(y="GC", x='Z score (p < 0.05)', title=title) +
     scale_x_discrete(labels=c('Z > 0', 'Z < 0')) +
     theme(legend.position = "none")
 }
@@ -278,6 +278,8 @@ combined_stops_excess <- function(frame) {
 
   file$padj <- p.adjust(file[[pcol]], method="fdr")
 
+  cat("\n")
+  print(frame)
   print(cor.test(file$gc, file[[col]], method="spearman"))
   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,]))
   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,])/nrow(file)*100)
@@ -288,6 +290,7 @@ combined_stops_excess <- function(frame) {
 
 # Calculate the number of genomes with excesses for frame and codon
 all_codons_excess <- function(frame, codon) {
+
   file <- read.csv('outputs/simulation_codon_shuffle_analysis/all_codons.csv', head=T)
 
   col <- paste(codon, '_', frame, '_z', sep='')
@@ -297,6 +300,9 @@ all_codons_excess <- function(frame, codon) {
 
   file$padj <- p.adjust(file[[pcol]], method="fdr")
 
+  cat("\n")
+  print(frame)
+  print(codon)
   print(cor.test(file$gc, file[[col]], method="spearman"))
   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,]))
   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,])/nrow(file)*100)
@@ -318,6 +324,7 @@ max = get_max_z()
 excess_individual_osc_plots(min, max)
 osc_vioplots()
 
+sink('outputs/r_outputs/codon_shuffle.txt')
 combined_stops_excess('both')
 combined_stops_excess(1)
 combined_stops_excess(2)
@@ -345,3 +352,4 @@ all_codons_excess(2, 'TGA')
 all_codons_excess(2, 'TGC')
 all_codons_excess(2, 'TGG')
 all_codons_excess(2, 'TGT')
+sink()
