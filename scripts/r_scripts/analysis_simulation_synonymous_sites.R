@@ -67,8 +67,6 @@ excess_plot <- function(frame) {
   file$padj <- p.adjust(file[[pcol]], method="fdr")
   file$sig <- ifelse(file$padj < 0.05 & file[[col]] > 0, 0, ifelse(file$padj < 0.05 & file[[col]] < 0, 1, 2))
 
-  fit <- lm(file[[col]]~file$gc)
-
   library(ggplot2)
   ggplot(file) +
     geom_point(aes(x=gc, y=file[[col]], color=factor(sig))) +
@@ -76,7 +74,6 @@ excess_plot <- function(frame) {
     scale_color_manual(name="", values=c('blue', 'red', 'black'), labels = c("Z > 0, p < 0.05", "Z < 0, p < 0.05", "p > 0.05")) +
     labs(x="GC", y='Z') +
     geom_hline(yintercept=0, lty=2) +
-    geom_abline(intercept = coef(fit)[1], slope = coef(fit)[2]) +
     theme_Publication() +
     theme(legend.justification=c(0,1),
           legend.position=c(0,0.26),
@@ -138,8 +135,6 @@ excess_codon_plot <- function(frame, codon, min=NULL, max=NULL) {
 
   file$sig <- ifelse(file$padj < 0.05 & file[[col]] > 0, 0, ifelse(file$padj < 0.05 & file[[col]] < 0, 1, 2))
 
-  fit <- lm(file[[col]]~file$gc)
-
   if(frame == "both") {
     title <- paste('Both', codon)
   } else {
@@ -159,7 +154,6 @@ excess_codon_plot <- function(frame, codon, min=NULL, max=NULL) {
     scale_color_manual(name="", values=c('blue', 'red', 'black'), labels = c("Z > 0, p < 0.05", "Z < 0, p < 0.05", "p > 0.05")) +
     labs(x="GC", y='Z', title=title) +
     geom_hline(yintercept=0, lty=2) +
-    geom_abline(intercept = coef(fit)[1], slope = coef(fit)[2]) +
     theme_Publication() +
     theme(legend.justification=c(0,1),
           legend.position=c(0.7,1.12),
