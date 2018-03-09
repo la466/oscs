@@ -304,6 +304,50 @@ all_codons_excess <- function(frame, codon) {
 }
 
 
+excess_table_plot <- function(frame, codon, min=NULL, max=NULL) {
+  file <- read.csv('outputs/simulation_codon_shuffle_analysis/all_codons.csv', head=T)
+  
+  col <- paste(codon, '_', frame, '_z', sep='')
+  pcol <- paste(codon, '_', frame, '_pval', sep='')
+  
+  file$padj <- p.adjust(file[[pcol]], method="fdr")
+  
+  file$sig <- ifelse(file$padj < 0.05 & file[[col]] > 0, 0, ifelse(file$padj < 0.05 & file[[col]] < 0, 1, 2))
+  
+  file$table <- ifelse(file$acc %in% t4, 4, 11)
+  
+  if(frame == "both") {
+    title <- paste('Both', codon)
+  } else {
+    title <- paste('+', frame, ' ', codon, sep='')
+  }
+  
+  if(is.null(min)){
+    min = min(file[[col]])
+  }
+  if(is.null(max)){
+    max = max(file[[col]])
+  }
+  
+  ggplot(file) +
+    geom_point(aes(x=gc, y=file[[col]], color=factor(table), shape=factor(table)), size=0.8) +
+    scale_y_continuous(limits=c(min,max), breaks=scales::pretty_breaks(n = 10)) +
+    scale_color_manual(values=c('blue', 'black'), labels=c("Table 4", "Table 11")) +
+    scale_shape_manual(values=c(4, 16), labels=c("Table 4", "Table 11")) +
+    labs(x="GC", y='Z', title=title) +
+    geom_hline(yintercept=0, lty=2) +
+    theme_Publication() +
+    theme(legend.justification=c(0,1),
+          legend.position=c(0.9,1),
+          legend.background = element_blank(),
+          legend.key = element_blank(),
+          legend.direction='vertical',
+          legend.key.size = unit(0.6, 'lines'),
+          legend.text=element_text(size=8),
+          legend.title = element_blank()
+    )
+  
+}
 
 
 
