@@ -289,8 +289,6 @@ all_codons_excess <- function(frame, codon) {
   col <- paste(codon, '_', frame, '_z', sep='')
   pcol <- paste(codon, '_', frame, '_pval', sep='')
 
-  head(file)
-
   file$padj <- p.adjust(file[[pcol]], method="fdr")
 
   cat("\n")

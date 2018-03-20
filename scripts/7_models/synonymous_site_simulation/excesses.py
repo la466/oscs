@@ -1,11 +1,12 @@
 #!/usr/bin/python
 
-# Script number:				7.6
-# File:						    6 of 9
+# Script number:				7.9
+# File:						    9 of 9
 # Prerequisite script(s):       synonymous_site_simulation, synonymous_site_simulation_analysis
 # Prerequisite file(s):
 # Description:					Output excess stats of model
 # Output files:                 stats.csv
+
 
 
 import numpy as np
@@ -63,11 +64,11 @@ def read_combined_stops():
         for line in lines[1:]:
             line = line.strip('\n').split(',')
             zs[1].append(float(line[3]))
-            zs[2].append(float(line[6]))
-            zs['both'].append(float(line[9]))
-            ps[1].append(float(line[5]))
-            ps[2].append(float(line[8]))
-            ps['both'].append(float(line[11]))
+            zs[2].append(float(line[5]))
+            zs['both'].append(float(line[7]))
+            ps[1].append(float(line[4]))
+            ps[2].append(float(line[6]))
+            ps['both'].append(float(line[8]))
             gc.append(float(line[1]))
             gc3.append(float(line[2]))
 
@@ -174,10 +175,15 @@ def write_to_file(combined, codons):
         output = combined[frame]
         output_file.write('all_stops,{},{},{},{},{}\n'.format(frame, output[0], np.divide(output[0], output[1]), output[2][0], output[2][1]))
 
-    for frame in codons:
-        for codon in codons[frame]:
-            output = codons[frame][codon]
-            output_file.write('{},{},{},{},{},{}\n'.format(codon, frame, output[0], np.divide(output[0], output[1]), output[2][0], output[2][1]))
+    for codon in sorted(codons[1]):
+        output = codons[1][codon]
+        output_file.write('{},{},{},{},{},{}\n'.format(codon, 1, output[0], np.divide(output[0], output[1]), output[2][0], output[2][1]))
+    for codon in sorted(codons[2]):
+        output = codons[2][codon]
+        output_file.write('{},{},{},{},{},{}\n'.format(codon, 2, output[0], np.divide(output[0], output[1]), output[2][0], output[2][1]))
+    for codon in sorted(codons["both"]):
+        output = codons["both"][codon]
+        output_file.write('{},{},{},{},{},{}\n'.format(codon, "both", output[0], np.divide(output[0], output[1]), output[2][0], output[2][1]))
 
     output_file.close()
 
@@ -199,17 +205,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# combined_stops_excess <- function(frame) {
-#   file <- read.csv('outputs/simulation_codon_shuffle_analysis/combined_stops.csv', head=T)
-#
-#   col <- paste('osc_', frame, '_z', sep='')
-#   pcol <- paste('osc_', frame, '_pval', sep='')
-#
-#   file$padj <- p.adjust(file[[pcol]], method="fdr")
-#
-#   print(cor.test(file$gc, file[[col]], method="spearman"))
-#   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,]))
-#   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,])/nrow(file)*100)
-#
-# }

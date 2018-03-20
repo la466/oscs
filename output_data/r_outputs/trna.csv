@@ -1,0 +1,30 @@
+Correlation between GC3 and the correlation between cds cost and osc density
+
+	Spearman's rank correlation rho
+
+data:  file$gc3 and file$p1_cor
+S = 3317200, p-value = 1.618e-08
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.3534105 
+
+Correlation between GC3 and the probability of frameshifting
+
+	Spearman's rank correlation rho
+
+data:  file$gc3 and file$median_cost_p1
+S = 1.2598e+17, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.6603582 
+
+
+Partial correlation between z score and frameshift prob with gc3 for synonymous site model
+   estimate p.value statistic      n gp   Method
+1 0.1761923       0  156.9905 769270  1 spearman
+
+Partial correlation between z score and frameshift prob with gc3 for codon shuffle model
+   estimate p.value statistic      n gp   Method
+1 0.1496595       0  132.7583 769270  1 spearman

@@ -62,11 +62,11 @@ def read_combined_stops():
         for line in lines[1:]:
             line = line.strip('\n').split(',')
             zs[1].append(float(line[3]))
-            zs[2].append(float(line[6]))
-            zs['both'].append(float(line[9]))
-            ps[1].append(float(line[5]))
-            ps[2].append(float(line[8]))
-            ps['both'].append(float(line[11]))
+            zs[2].append(float(line[5]))
+            zs['both'].append(float(line[7]))
+            ps[1].append(float(line[4]))
+            ps[2].append(float(line[6]))
+            ps['both'].append(float(line[8]))
             gc.append(float(line[1]))
             gc3.append(float(line[2]))
 
@@ -77,9 +77,10 @@ def read_combined_stops():
 
     for frame in frames:
 
+        excess = calc_excess_z(zs[frame])
         pos = calc_pos_z(zs[frame], ps[frame])
         cor = calc_cor(gc, zs[frame])
-        outputs[frame] = [pos, len(zs[frame]), cor]
+        outputs[frame] = [pos, len(zs[frame]), cor, excess]
 
     return(outputs)
 
@@ -92,6 +93,13 @@ def calc_pos_z(zs, ps):
         if(zs[i] > 0 and padj[i] < 0.05):
             pos += 1
     return(pos)
+
+def calc_excess_z(zs):
+	pos = 0
+	for i in range(len(zs)):
+		if(zs[i] > 0):
+			pos += 1
+	return(pos)
 
 def calc_cor(gc, zs):
 
@@ -145,9 +153,10 @@ def read_codon_outputs():
 
     for frame in frames:
         for codon in sorted(zs[frame]):
+            excess = calc_excess_z(zs[frame][codon])
             pos = calc_pos_z(zs[frame][codon], ps[frame][codon])
             cor = calc_cor(gc, zs[frame][codon])
-            outputs[frame][codon] = [pos, len(zs[frame][codon]), cor]
+            outputs[frame][codon] = [pos, len(zs[frame][codon]), cor, excess]
 
     return(outputs)
 
@@ -167,16 +176,16 @@ def array_to_arraystring(array):
 def write_to_file(combined, codons):
 
     output_file = open('outputs/mmodels_analysis/23mm/stats.csv', 'w')
-    output_file.write('codon,frame,num_excess,prop_with_excess,cor_rho,cor_p\n')
+    output_file.write('codon,frame,num_excess,prop_with_excess,num_sign_excess,prop_sig_excess,cor_rho,cor_p\n')
 
     for frame in combined:
         output = combined[frame]
-        output_file.write('all_stops,{},{},{},{},{}\n'.format(frame, output[0], np.divide(output[0], output[1]), output[2][0], output[2][1]))
+        output_file.write('all_stops,{},{},{},{},{},{},{}\n'.format(frame, output[3], np.divide(output[3], output[1]), output[0], np.divide(output[0], output[1]), output[2][0], output[2][1]))
 
     for frame in codons:
-        for codon in codons[frame]:
+        for codon in sorted(codons[frame]):
             output = codons[frame][codon]
-            output_file.write('{},{},{},{},{},{}\n'.format(codon, frame, output[0], np.divide(output[0], output[1]), output[2][0], output[2][1]))
+            output_file.write('{},{},{},{},{},{},{},{}\n'.format(codon, frame, output[3], np.divide(output[3], output[1]), output[0], np.divide(output[0], output[1]), output[2][0], output[2][1]))
 
     output_file.close()
 
@@ -198,17 +207,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# combined_stops_excess <- function(frame) {
-#   file <- read.csv('outputs/simulation_codon_shuffle_analysis/combined_stops.csv', head=T)
-#
-#   col <- paste('osc_', frame, '_z', sep='')
-#   pcol <- paste('osc_', frame, '_pval', sep='')
-#
-#   file$padj <- p.adjust(file[[pcol]], method="fdr")
-#
-#   print(cor.test(file$gc, file[[col]], method="spearman"))
-#   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,]))
-#   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,])/nrow(file)*100)
-#
-# }

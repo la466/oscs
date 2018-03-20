@@ -246,11 +246,11 @@ def run_genomes(accessions, acc_counts):
     return(outputs)
 
 
-def write_codon_densities(results):
+def write_codon_densities(results, t4_acc_details):
 
     output_file = open('outputs/osc_densities/off_frame_densities_t4.csv', 'w')
 
-    header = 'acc,gc,gc3,trans_table,cds_count,codon_count'
+    header = 'acc,gen,gc,gc3,trans_table,cds_count,codon_count'
     for frame in frames:
         for codon in sorted(codon_list):
             header += ',%s_%s' % (codon, frame)
@@ -268,7 +268,7 @@ def write_codon_densities(results):
             trans_table = output[5]
             codon_densities = output[6]
 
-            output_line = '%s,%s,%s,%s,%s,%s' % (acc, gc, gc3, trans_table, cds_count, codon_count)
+            output_line = '%s,%s,%s,%s,%s,%s,%s' % (acc, t4_acc_details[acc], gc, gc3, trans_table, cds_count, codon_count)
             for frame in codon_densities:
                 for stop in sorted(codon_densities[frame]):
                     output_line += ',%s' % (codon_densities[frame][stop])
@@ -278,10 +278,10 @@ def write_codon_densities(results):
     output_file.close()
 
 
-def write_combined_densities(results):
+def write_combined_densities(results, t4_acc_details):
 
     output_file = open('outputs/osc_densities/combined_osc_densities_t4.csv', 'w')
-    header = 'acc,gc,gc3,trans_table,cds_count,codon_count'
+    header = 'acc,gen,gc,gc3,trans_table,cds_count,codon_count'
     for frame in frames:
         header += ',%s_density' % (frame)
     header += '\n'
@@ -298,7 +298,7 @@ def write_combined_densities(results):
             trans_table = output[5]
             combined_densities = output[7]
 
-            output_line = '%s,%s,%s,%s,%s,%s' % (acc, gc, gc3, trans_table, cds_count, codon_count)
+            output_line = '%s,%s,%s,%s,%s,%s,%s' % (acc, t4_acc_details[acc], gc, gc3, trans_table, cds_count, codon_count)
             for frame in combined_densities:
                 output_line += ',%s' % (combined_densities[frame])
             output_line += '\n'
@@ -307,10 +307,22 @@ def write_combined_densities(results):
     output_file.close()
 
 
-def write_to_files(results):
+def write_to_files(results, t4_acc_details):
 
-    write_codon_densities(results)
-    write_combined_densities(results)
+    write_codon_densities(results, t4_acc_details)
+    write_combined_densities(results, t4_acc_details)
+
+
+def get_t4_details(path):
+
+    accs = {}
+
+    with open (path, 'r') as file:
+        lines = file.readlines()
+        for line in lines[1:]:
+            splits = line.strip('\n').split(',')
+            accs[splits[3]] = splits[0]
+    return accs
 
 
 def main():
@@ -321,6 +333,7 @@ def main():
     create_directory('outputs/osc_densities/')
 
     accessions = get_accessions('outputs/genome_extractions_t4/')
+    t4_acc_details = get_t4_details('outputs/genome_sorting/genome_list_t4.csv')
 
     accession_count = 0
     genomes = []
@@ -336,7 +349,7 @@ def main():
     results = run_in_parralell(genomes, [acc_counts], run_genomes)
     # run_genomes(genomes, acc_counts)
 
-    write_to_files(results)
+    write_to_files(results, t4_acc_details)
 
 
 

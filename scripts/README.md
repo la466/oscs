@@ -55,6 +55,10 @@ All scripts to be run using using python 3, except **1/get_genomes** and **9/ext
 
 - **synonymous_site_simulation/excesses**: Output excess stats of synonymous site model.
 
+- **synonymous_site_simulation/synonymous_site_simulation_t4**: For table 4 genomes. Randomise synonymous sites within the genome, preserving amino acid identities and genome codon usage biases. Outputs OSC densities for 200 simulations for each genome. Codon count excludes one-fold degenerates.
+
+- **synonymous_site_simulation/synonymous_site_simulation_analysis_t4**: For table 4 genomes. Analysis of results from synonymous site simulations.
+
 - **synonymous_codon_simulation/synonymous_codon_simulation**: Randomise synonymous sites within the genome, preserving amino acid identities and genome codon usage biases. Outputs OSC densities for 200 simulations for each genome. Codon count excludes one-fold degenerates.
 
 - **synonymous_codon_simulation/synonymous_codon_simulation_analysis**: Analysis of results from synonymous site simulations.
@@ -101,7 +105,7 @@ All scripts to be run using using python 3, except **1/get_genomes** and **9/ext
 
 #####r_scripts
 
-- **osc_densities**: Comapre OSC densities between table 11 and table 4 genomes. 
+- **osc_densities**: Comapre OSC densities between table 11 and table 4 genomes.
 
 - **analysis_simulation_codon_shuffle**: Analysis and plots for the codon shuffle model.
 
@@ -122,11 +126,3 @@ All scripts to be run using using python 3, except **1/get_genomes** and **9/ext
 - **next_nt** Analysis and plot scripts for the data on the nucleotide following an OSC.
 
 - **repeat_seligmann** Analysis and plot scripts for the data repeating the analysis used by Seligmann (2004).
-
-
-
-
-
-
-
-

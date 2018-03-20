@@ -1,0 +1,510 @@
+
+[1] "both"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 26242000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.5289488 
+
+[1] "Excess"
+[1] 677
+[1] 97.55043
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 1
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 30625000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.4502691 
+
+[1] "Excess"
+[1] 661
+[1] 95.24496
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 2
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 31052000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.4426104 
+
+[1] "Excess"
+[1] 621
+[1] 89.48127
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] "both"
+[1] "TAA"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 51848000, p-value = 0.06801
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+0.06931747 
+
+[1] "Excess"
+[1] 687
+[1] 98.99135
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] "both"
+[1] "TAC"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 23782000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.5730976 
+
+[1] "Excess"
+[1] 674
+[1] 97.11816
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] "both"
+[1] "TAG"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 38257000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.3132637 
+
+[1] "Excess"
+[1] 665
+[1] 95.82133
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] "both"
+[1] "TAT"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 34461000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+     rho 
+0.381416 
+
+[1] "Excess"
+[1] 684
+[1] 98.55908
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] "both"
+[1] "TGA"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 17507000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.6857377 
+
+[1] "Excess"
+[1] 309
+[1] 44.5245
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] "both"
+[1] "TGC"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 18254000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.6723267 
+
+[1] "Excess"
+[1] 327
+[1] 47.11816
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] "both"
+[1] "TGG"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 18341000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.6707775 
+
+[1] "Excess"
+[1] 333
+[1] 47.98271
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] "both"
+[1] "TGT"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 17893000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.6788189 
+
+[1] "Excess"
+[1] 321
+[1] 46.2536
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 1
+[1] "TAA"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 69863000, p-value = 1.305e-11
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.2540653 
+
+[1] "Excess"
+[1] 678
+[1] 97.69452
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 1
+[1] "TAC"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 36179000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.3505764 
+
+[1] "Excess"
+[1] 652
+[1] 93.94813
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 1
+[1] "TAG"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 49319000, p-value = 0.00249
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+     rho 
+0.114699 
+
+[1] "Excess"
+[1] 503
+[1] 72.47839
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 1
+[1] "TAT"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 20494000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.6321265 
+
+[1] "Excess"
+[1] 624
+[1] 89.91354
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 1
+[1] "TGA"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 8534800, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.8467963 
+
+[1] "Excess"
+[1] 513
+[1] 73.91931
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 1
+[1] "TGC"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 8399700, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.8492229 
+
+[1] "Excess"
+[1] 444
+[1] 63.97695
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 1
+[1] "TGG"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 9489100, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.8296677 
+
+[1] "Excess"
+[1] 452
+[1] 65.12968
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 1
+[1] "TGT"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 101690000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.8252916 
+
+[1] "Excess"
+[1] 11
+[1] 1.585014
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 2
+[1] "TAA"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 81509000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.4631235 
+
+[1] "Excess"
+[1] 527
+[1] 75.9366
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 2
+[1] "TAC"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 72929000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.3091058 
+
+[1] "Excess"
+[1] 298
+[1] 42.93948
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 2
+[1] "TAG"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 59434000, p-value = 0.07838
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+        rho 
+-0.06686218 
+
+[1] "Excess"
+[1] 284
+[1] 40.92219
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 2
+[1] "TAT"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 22500000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.5961121 
+
+[1] "Excess"
+[1] 490
+[1] 70.60519
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 2
+[1] "TGA"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 20643000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+     rho 
+0.629447 
+
+[1] "Excess"
+[1] 666
+[1] 95.96542
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 2
+[1] "TGC"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 14691000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.7362866 
+
+[1] "Excess"
+[1] 570
+[1] 82.13256
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 2
+[1] "TGG"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 15130000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.7284032 
+
+[1] "Excess"
+[1] 545
+[1] 78.53026
+[1] "Significant excess"
+[1] 0
+[1] 0
+
+[1] 2
+[1] "TGT"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 102280000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+-0.836026 
+
+[1] "Excess"
+[1] 24
+[1] 3.458213
+[1] "Significant excess"
+[1] 0
+[1] 0

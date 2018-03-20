@@ -1,0 +1,55 @@
+
+==========================================
+Combined OSC for frame both
+
+	Kruskal-Wallis rank sum test
+
+data:  resids by data$table
+Kruskal-Wallis chi-squared = 11.914, df = 1, p-value = 0.0005572
+
+Mean residual t4: -5.48700419200879
+Mean residual t11: 0.0457121132333169
+
+==========================================
+Combined OSC for frame 1
+
+	Kruskal-Wallis rank sum test
+
+data:  resids by data$table
+Kruskal-Wallis chi-squared = 11.896, df = 1, p-value = 0.0005624
+
+Mean residual t4: -2.61660445697439
+Mean residual t11: 0.0287967128730129
+
+==========================================
+Combined OSC for frame 2
+
+	Kruskal-Wallis rank sum test
+
+data:  resids by data$table
+Kruskal-Wallis chi-squared = 11.149, df = 1, p-value = 0.0008406
+
+Mean residual t4: -2.87039973503442
+Mean residual t11: 0.0169154003603043
+
+==========================================
+TGA frame 1
+
+	Kruskal-Wallis rank sum test
+
+data:  resids by data$table
+Kruskal-Wallis chi-squared = 2.3584, df = 1, p-value = 0.1246
+
+Mean residual t4: -0.232855787978857
+Mean residual t11: -0.00148461230799442
+
+==========================================
+TGA frame 2
+
+	Kruskal-Wallis rank sum test
+
+data:  resids by data$table
+Kruskal-Wallis chi-squared = 9.3265, df = 1, p-value = 0.002259
+
+Mean residual t4: 1.11312639694381
+Mean residual t11: -0.0109581463378688

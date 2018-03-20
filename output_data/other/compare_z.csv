@@ -1,0 +1,4 @@
+codon,sig_pos_codon_shuffle,sig_pos_syn_site,sig_pos_both,%_both/max(cs/ss)
+TAA,296,298,270,0.9060402684563759
+TAG,190,155,146,0.7684210526315789
+TGA,370,256,251,0.6783783783783783

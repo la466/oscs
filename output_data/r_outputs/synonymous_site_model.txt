@@ -1,0 +1,402 @@
+
+[1] "both"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 80440000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.4439313 
+
+[1] 87
+[1] 12.53602
+
+[1] 1
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 80406000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+-0.443313 
+
+[1] 272
+[1] 39.19308
+
+[1] 2
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 70204000, p-value = 4.046e-12
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.2601801 
+
+[1] 103
+[1] 14.8415
+
+[1] "both"
+[1] "TAA"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 84026000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.5082938 
+
+[1] 118
+[1] 17.00288
+
+[1] "both"
+[1] "TAC"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 59444000, p-value = 0.07755
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+        rho 
+-0.06704844 
+
+[1] 145
+[1] 20.89337
+
+[1] "both"
+[1] "TAG"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 71444000, p-value = 4.371e-14
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.2824498 
+
+[1] 101
+[1] 14.55331
+
+[1] "both"
+[1] "TAT"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 76982000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.3818635 
+
+[1] 194
+[1] 27.95389
+
+[1] "both"
+[1] "TGA"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 73863000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.3258743 
+
+[1] 288
+[1] 41.49856
+
+[1] "both"
+[1] "TGC"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 22907000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.5888124 
+
+[1] 636
+[1] 91.64265
+
+[1] "both"
+[1] "TGG"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 78230000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.4042532 
+
+[1] 265
+[1] 38.18444
+
+[1] "both"
+[1] "TGT"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 78149000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.4028126 
+
+[1] 252
+[1] 36.31124
+
+[1] 1
+[1] "TAA"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 80427000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.4436978 
+
+[1] 298
+[1] 42.93948
+
+[1] 1
+[1] "TAC"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 22538000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.5954325 
+
+[1] 330
+[1] 47.55043
+
+[1] 1
+[1] "TAG"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 74322000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+-0.334105 
+
+[1] 155
+[1] 22.33429
+
+[1] 1
+[1] "TAT"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 33249000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.4031759 
+
+[1] 439
+[1] 63.25648
+
+[1] 1
+[1] "TGA"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 63220000, p-value = 0.0003729
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.1348202 
+
+[1] 256
+[1] 36.88761
+
+[1] 1
+[1] "TGC"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 20911000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.6246475 
+
+[1] 599
+[1] 86.31124
+
+[1] 1
+[1] "TGG"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 76063000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.3653539 
+
+[1] 271
+[1] 39.04899
+
+[1] 1
+[1] "TGT"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 67847000, p-value = 7.287e-09
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.2178831 
+
+[1] 98
+[1] 14.12104
+
+[1] 2
+[1] "TAA"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 73584000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.3208613 
+
+[1] 93
+[1] 13.40058
+
+[1] 2
+[1] "TAC"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 77358000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.3886131 
+
+[1] 146
+[1] 21.03746
+
+[1] 2
+[1] "TAG"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 63489000, p-value = 0.000227
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.1396446 
+
+[1] 42
+[1] 6.051873
+
+[1] 2
+[1] "TAT"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 83537000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.4995229 
+
+[1] 185
+[1] 26.65706
+
+[1] 2
+[1] "TGA"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 70223000, p-value = 3.777e-12
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.2605356 
+
+[1] 365
+[1] 52.59366
+
+[1] 2
+[1] "TGC"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 45802000, p-value = 2.523e-06
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.1778363 
+
+[1] 557
+[1] 80.25937
+
+[1] 2
+[1] "TGG"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 67622000, p-value = 1.386e-08
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.2138482 
+
+[1] 271
+[1] 39.04899
+
+[1] 2
+[1] "TGT"
+
+	Spearman's rank correlation rho
+
+data:  file$gc and file[[col]]
+S = 78505000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.4091923 
+
+[1] 384
+[1] 55.33141

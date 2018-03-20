@@ -2,7 +2,7 @@
 
 # Script number:
 # File:
-# Prerequisite script(s):		codon shuffle and synonymous site scripts
+# Prerequisite script(s):		simulation scripts
 # Prerequisite file(s):
 # Description:					Comparse z scores
 # Output files:                 compare_z.csv
@@ -57,9 +57,6 @@ def get_z_scores(path):
 			acc = splits[0]
 			accs.append(acc)
 
-			# p1_zs['TAA'][acc] = []
-			# p1_zs['TAG'][acc] = []
-			# p1_zs['TGA'][acc] = []
 
 			TAA1 = float(splits[3])
 			TAG1 = float(splits[5])
@@ -129,27 +126,6 @@ def compare(p1_zs_ss, p1_padj_ss, p1_zs_cs, p1_padj_cs):
 
 		output_file.write('{},{},{},{},{}\n'.format(codon, len(positive_cs), len(positive_ss), len(same), np.divide(len(same), max(len(positive_cs), len(positive_ss)))))
 
-
-
-
-	# for codon in zs:
-    #
-	# 	positive_ss = []
-	# 	positive_cs = []
-	# 	same = []
-    #
-	# 	# print(codon, zs[codon])
-    #
-	# 	for acc in zs[codon]:
-	# 		if zs[codon][acc][0] > 0:
-	# 			positive_ss.append(acc)
-	# 		if zs[codon][acc][1] > 0:
-	# 			positive_cs.append(acc)
-    #
-	# 		if zs[codon][acc][0] > 0 and zs[codon][acc][1] > 0:
-	# 			same.append(acc)
-    #
-	# 	output_file.write('{},{},{},{},{}\n'.format(codon, len(positive_cs), len(positive_ss), len(same), np.divide(len(same), max(len(positive_cs), len(positive_ss)))))
 
 	output_file.close()
 

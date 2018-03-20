@@ -1,12 +1,11 @@
 #!/usr/bin/python
 
-# Script number:				6.2
-# File:							2 of 6
-# Prerequisite script(s):       23mm
+# Script number:			    7.
+# File:
+# Prerequisite script(s):
 # Prerequisite file(s):
-# Description:					Analyse Markov model simulations
-# Output files:                 stops.csv, all_codons.csv, combined_stops.csv, combined_stops_percentage_excess.csv
-
+# Description:					Analysis for the model simulating synonymous sites for t4 genomes
+# Output files:                 stops.csv, combined_stops.csv, all_codons.csv
 
 import numpy as np
 import re
@@ -16,7 +15,6 @@ import os
 import sys
 from scipy.stats import t
 import scipy.stats
-
 
 ##########################
 # Variables
@@ -65,6 +63,8 @@ stops[11] = ['TAA', 'TAG', 'TGA']
 frames = [1,2,'both']
 
 
+output_analysis_directory = 'outputs/simulation_synonymous_site_analysis_t4/'
+simulation_output_directory = 'outputs/simulation_synonymous_site_t4/'
 
 def get_t4_genomes():
 
@@ -77,9 +77,6 @@ def get_t4_genomes():
 	return(t4_genomes)
 
 t4 = get_t4_genomes()
-
-output_directory = 'outputs/mmodels/23mm/'
-
 
 
 ##########################
@@ -94,7 +91,6 @@ def create_directory(directory_path):
 	else:
 		print ('Making new directory: %s\n' % directory_path)
 		os.mkdir(directory_path)
-
 
 def get_file_paths(directory):
 
@@ -138,7 +134,6 @@ def run_in_parralell(input_list, args, function_to_run, workers = None, onebyone
     return(results)
 
 
-
 # Functions
 def get_stops(accession):
 
@@ -156,7 +151,7 @@ def get_lines(file_path):
     real_counts = []
     randomised_counts = []
 
-    with open(output_directory + file_path, 'rU') as randomised_file:
+    with open(simulation_output_directory + file_path, 'rU') as randomised_file:
 
         lines = randomised_file.readlines()
 
@@ -177,7 +172,7 @@ def get_lines(file_path):
                 real_counts.append(line.strip('\n').split(','))
                 gc = float(line.split(',')[1])
                 gc3 = float(line.split(',')[2])
-                codon_count = float(line.split(',')[3])
+                codon_count = int(line.split(',')[3])
             elif line_count > 2:
                 randomised_counts.append(line.strip('\n').split(','))
 
@@ -217,20 +212,17 @@ def analyse_counts(acc_codons, real_counts_dict, randomised_counts_dict, genome_
 
     z_scores = {}
     pvals = {}
-    codon_logr = {}
-
     for frame in frames:
         z_scores[frame] = {}
         pvals[frame] = {}
-        codon_logr[frame] = {}
 
     for frame in real_counts_dict:
         for codon in codon_list:
 
+            # z = np.log(np.divide(real_counts_dict[frame][stop],np.mean(randomised_counts_dict[frame][stop])))
             z = (real_counts_dict[frame][codon] - np.mean(randomised_counts_dict[frame][codon])) / np.std(randomised_counts_dict[frame][codon])
             z_scores[frame][codon] = z
             pvals[frame][codon] = scipy.stats.norm.sf(abs(z))*2
-            codon_logr[frame][codon] = np.log(np.divide(real_counts_dict[frame][codon], np.mean(randomised_counts_dict[frame][codon])))
 
 
     # Combine the stop codons
@@ -250,19 +242,16 @@ def analyse_counts(acc_codons, real_counts_dict, randomised_counts_dict, genome_
             randomised_totals[frame].append(total_randomised)
 
     z_totals = {}
-    pes = {}
-    logr = {}
 
     for frame in real_totals:
+        # z = np.log(np.divide(real_totals[frame],np.mean(randomised_totals[frame])))
         z = (real_totals[frame] - np.mean(randomised_totals[frame])) / np.std(randomised_totals[frame])
 
-        p=  scipy.stats.norm.sf(abs(z))*2
+        p = scipy.stats.norm.sf(abs(z))*2
         z_totals[frame] = [z,p]
 
-        pes[frame] = (real_totals[frame] - np.mean(randomised_totals[frame]))/real_totals[frame]
-        logr[frame] = np.log(np.divide(real_totals[frame], np.mean(randomised_totals[frame])))
 
-    return(z_scores, pvals, z_totals, pes, codon_logr, logr)
+    return(z_scores, pvals, z_totals)
 
 
 # Test function to check columns are being returned correctly
@@ -270,18 +259,14 @@ def check_values(real_counts):
 
     check = True
 
-    if float("{0:.9f}".format(real_counts[1]['AAA'])) != 6.369033629:
+    if float("{0:.9f}".format(real_counts[1]['AAA'])) != 6.541671565:
         check = False
-        print('AAA 1 fail')
-    if float("{0:.9f}".format(real_counts[2]['AAA'])) != 4.845444048:
+    if float("{0:.9f}".format(real_counts[2]['AAA'])) != 4.976783825:
         check = False
-        print('AAA 2 fail')
-    if float("{0:.9f}".format(real_counts[1]['TTT'])) != 4.099896792:
+    if float("{0:.9f}".format(real_counts[1]['TTT'])) != 4.211027893:
         check = False
-        print('TTT 1 fail')
-    if float("{0:.9f}".format(real_counts[2]['TTT'])) != 6.965594057:
+    if float("{0:.9f}".format(real_counts[2]['TTT'])) != 7.154402257:
         check = False
-        print('TTT 2 fail')
 
     if not check:
         print('Column checks failed')
@@ -311,7 +296,7 @@ def run_genome(accessions, file_paths, acc_counts):
         real_counts_dict, randomised_counts_dict = counts_to_dict(accession, acc_codons, real_counts, randomised_counts, codon_count)
 
         # Analyse the counts
-        z_scores, pvals, z_totals, pes, codon_logr, logr = analyse_counts(acc_codons, real_counts_dict, randomised_counts_dict, genome_stops)
+        z_scores, pvals, z_totals = analyse_counts(acc_codons, real_counts_dict, randomised_counts_dict, genome_stops)
         # codon_z_scores, codon_le_scores, combined_stops_z_scores, combined_stops_le_scores, codon_t_tests, combined_stops_t_tests = analyse_counts(acc_codons, real_counts_dict, randomised_counts_dict, genome_stops)
 
         if accession == 'AE000511':
@@ -319,7 +304,7 @@ def run_genome(accessions, file_paths, acc_counts):
             if not check:
                 break
 
-        output = [accession, gc, gc3, genome_stops, z_scores, pvals, z_totals, pes, codon_logr, logr]
+        output = [accession, gc, gc3, genome_stops, z_scores, pvals, z_totals]
         outputs.append(output)
 
         t1 = time.time()
@@ -331,7 +316,7 @@ def run_genome(accessions, file_paths, acc_counts):
 
 def write_stop_codons(results):
 
-    output_file = open('outputs/mmodels_analysis/23mm/stops.csv', 'w')
+    output_file = open(output_analysis_directory + 'stops.csv', 'w')
     header = 'acc,gc,gc3'
     for frame in frames:
         for stop in sorted(stop_codons):
@@ -363,7 +348,7 @@ def write_stop_codons(results):
 
 def write_combined_stops(results):
 
-    output_file = open('outputs/mmodels_analysis/23mm/combined_stops.csv', 'w')
+    output_file = open(output_analysis_directory + 'combined_stops.csv', 'w')
     header = 'acc,gc,gc3'
     for frame in frames:
         header += ',osc_%s_z,osc_%s_pval' % (frame,frame)
@@ -394,7 +379,7 @@ def write_combined_stops(results):
 
 def write_all_codons(results):
 
-    output_file = open('outputs/mmodels_analysis/23mm/all_codons.csv', 'w')
+    output_file = open(output_analysis_directory + 'all_codons.csv', 'w')
     header = 'acc,gc,gc3'
     for frame in frames:
         for codon in sorted(codon_list):
@@ -424,102 +409,15 @@ def write_all_codons(results):
 
     output_file.close()
 
-def write_all_codons_logr(results):
-
-    output_file = open('outputs/mmodels_analysis/23mm/all_codons_logr.csv', 'w')
-    header = 'acc,gc,gc3'
-    for frame in frames:
-        for codon in sorted(codon_list):
-            header += ',%s_%s_logr' % (codon, frame)
-    header += '\n'
-    output_file.write(header)
-
-
-    for result in results:
-
-        outputs = result.get()
-        for output in outputs:
-
-            acc = output[0]
-            gc = output[1]
-            gc3 = output[2]
-            logr = output[8]
-
-
-            output_line = '%s,%s,%s' % (acc, gc, gc3)
-            for frame in logr:
-                for codon in sorted(codon_list):
-                    output_line += ',%s' % (logr[frame][codon])
-            output_line += '\n'
-            output_file.write(output_line)
-
-    output_file.close()
-
-def write_percentage_excess(results):
-
-    output_file = open('outputs/mmodels_analysis/23mm/combined_stops_percentage_excess.csv', 'w')
-    header = 'acc,gc,gc3'
-    for frame in frames:
-        header += ',pe_%s' % (frame)
-    header += '\n'
-    output_file.write(header)
-
-
-    for result in results:
-
-        outputs = result.get()
-        for output in outputs:
-
-            acc = output[0]
-            gc = output[1]
-            gc3 = output[2]
-            pes = output[7]
-
-            output_line = '%s,%s,%s' % (acc, gc, gc3)
-            for frame in pes:
-                output_line += ',%s' % (pes[frame])
-            output_line += '\n'
-            output_file.write(output_line)
-
-    output_file.close()
-
-def write_logr(results):
-
-    output_file = open('outputs/mmodels_analysis/23mm/combined_stops_logr.csv', 'w')
-    header = 'acc,gc,gc3'
-    for frame in frames:
-        header += ',logr_%s' % (frame)
-    header += '\n'
-    output_file.write(header)
-
-
-    for result in results:
-
-        outputs = result.get()
-        for output in outputs:
-
-            acc = output[0]
-            gc = output[1]
-            gc3 = output[2]
-            logr = output[9]
-
-            output_line = '%s,%s,%s' % (acc, gc, gc3)
-            for frame in logr:
-                output_line += ',%s' % (logr[frame])
-            output_line += '\n'
-            output_file.write(output_line)
-
-    output_file.close()
-
 
 def main():
 
     t0_main = time.time()
 
-    create_directory('outputs/mmodels_analysis/')
-    create_directory('outputs/mmodels_analysis/23mm/')
+    # Setup output directory
+    create_directory(output_analysis_directory)
 
-    file_paths = get_file_paths(output_directory)
+    file_paths = get_file_paths(simulation_output_directory)
 
     accessions = []
     acc_counts = {}
@@ -539,9 +437,6 @@ def main():
     write_stop_codons(results)
     write_combined_stops(results)
     write_all_codons(results)
-    # write_percentage_excess(results)
-    # write_logr(results)
-    # write_all_codons_logr(results)
 
 
 

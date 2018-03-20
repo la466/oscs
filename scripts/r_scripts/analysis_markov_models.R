@@ -67,22 +67,16 @@ excess_plot <- function(model, frame, main=NULL) {
 
   file$padj <- p.adjust(file[[pcol]], method="fdr")
   file$sig <- ifelse(file$padj < 0.05 & file[[col]] > 0, 0, ifelse(file$padj < 0.05 & file[[col]] < 0, 1, 2))
-  fit <- lm(file[[col]]~file$gc)
-
-  
-
 
   library(ggplot2)
   plot <- ggplot(file) +
-    geom_point(aes(x=gc, y=file[[col]], color=factor(sig))) +
+    geom_point(aes(x=gc, y=file[[col]] )) +
     scale_y_continuous(limits = c(-0.5, 1.5)) +
-		scale_color_manual(name="", values=c('blue', 'red', 'black'), labels = c("Z > 0, p < 0.05", "Z < 0, p < 0.05", "p > 0.05")) +
     labs(x="GC", y='Z') +
     geom_hline(yintercept=0, lty=2) +
-    geom_abline(intercept = coef(fit)[1], slope = coef(fit)[2]) +
     theme_Publication() +
     theme(legend.justification=c(0,1),
-          legend.position=c(0,1.12),
+          legend.position=c(0,1),
           legend.background = element_blank(),
           legend.key = element_blank(),
           legend.direction='vertical',
@@ -93,34 +87,9 @@ excess_plot <- function(model, frame, main=NULL) {
   if(!is.null(main)){
     plot <- plot + ggtitle(main)
   }
-
   plot
 }
 
-
-# Violin plot for genome GC content grouped by significant excesses or not
-excess_vioplot <- function(model, frame){
-  filePath <- paste('outputs/mmodels_analysis/', model, '/combined_stops.csv', sep="")
-  file <- read.csv(filePath, head=T)
-
-  col <- paste('osc_', frame, '_z', sep='')
-  pcol <- paste('osc_', frame, '_pval', sep='')
-
-  file$padj <- p.adjust(file[[pcol]], method="fdr")
-
-  file$sig <- ifelse(file$padj < 0.05 & file[[col]] > 0, 1, ifelse(file$padj < 0.05 & file[[col]] < 0, 2, 0))
-	file <- file[file$sig > 0,]
-
-  library(ggplot2)
-  ggplot(file, aes(factor(sig), gc)) +
-    theme_Publication() +
-    geom_violin(aes(fill = factor(sig))) +
-    geom_boxplot(width=.1, outlier.colour=NA) +
-    scale_fill_manual(values=c('blue', 'red')) +
-    labs(y="GC", x='Z score (p < 0.05)') +
-    scale_x_discrete(labels=c('Z > 0', 'Z < 0')) +
-    theme(legend.position = "none")
-}
 
 
 # Create a plot combining the excess plots and violin plots
@@ -137,20 +106,6 @@ excess_plots <- function(model1, model2) {
   ggsave(file=filePath, plots, width=8, height=12, device=cairo_pdf)
 }
 
-excess_ind_plots <- function(model) {
-  library(ggplot2)
-  library(gridExtra)
-  plots <- grid.arrange(
-    arrangeGrob(excess_plot(model, 'both'), excess_vioplot(model, 'both'), ncol=2, top="Both"),
-    arrangeGrob(excess_plot(model, 1), excess_vioplot(model, 1), ncol=2, top="+1"),
-    arrangeGrob(excess_plot(model, 2), excess_vioplot(model, 2), ncol=2, top="+2"),
-    ncol=1, nrow=3
-  )
-  filePath <- paste('graphs/markov_models/osc_', model, '_excesses.pdf', sep='')
-  ggsave(file=filePath, plots, width=8, height=12, device=cairo_pdf)
-}
-
-
 
 # Excess plot for codon in given frame
 excess_codon_plot <- function(model, frame, codon, min=NULL, max=NULL) {
@@ -158,14 +113,12 @@ excess_codon_plot <- function(model, frame, codon, min=NULL, max=NULL) {
   filePath <- paste('outputs/mmodels_analysis/', model, '/all_codons.csv', sep="")
   file <- read.csv(filePath, head=T)
 
+
   col <- paste(codon, '_', frame, '_z', sep='')
   pcol <- paste(codon, '_', frame, '_pval', sep='')
 
   file$padj <- p.adjust(file[[pcol]], method="fdr")
-
   file$sig <- ifelse(file$padj < 0.05 & file[[col]] > 0, 0, ifelse(file$padj < 0.05 & file[[col]] < 0, 1, 2))
-
-  fit <- lm(file[[col]]~file$gc)
 
   if(frame == "both") {
     title <- paste('Both', codon)
@@ -184,10 +137,9 @@ excess_codon_plot <- function(model, frame, codon, min=NULL, max=NULL) {
   ggplot(file) +
     geom_point(aes(x=gc, y=file[[col]], color=factor(sig)), size=0.8) +
     scale_y_continuous(limits=c(min,max), breaks=scales::pretty_breaks(n = 10)) +
-		scale_color_manual(name="", values=c('blue', 'red', 'black'), labels = c("Z > 0, p < 0.05", "Z < 0, p < 0.05", "p > 0.05")) +
+    scale_color_manual(name="", values=c("0" = 'blue', "1"= 'red', "2" = 'black'), labels = c("0" = "Z > 0, p < 0.05", "1" = "Z < 0, p < 0.05", "2" = "p > 0.05")) +
     labs(x="GC", y='Z', title=title) +
     geom_hline(yintercept=0, lty=2) +
-    geom_abline(intercept = coef(fit)[1], slope = coef(fit)[2]) +
     theme_Publication() +
     theme(legend.justification=c(0,1),
           legend.position=c(0,1),
@@ -198,6 +150,8 @@ excess_codon_plot <- function(model, frame, codon, min=NULL, max=NULL) {
           legend.text=element_text(size=8)
     )
 }
+
+
 
 # Get the minimum Z value for the stop codons
 get_min_z <- function(model){
@@ -232,12 +186,10 @@ get_max_z <- function(model){
   return(max)
 }
 
+
 # Generate plot for each of the stop codons in each of the reading frames
 excess_individual_osc_plots <- function(model, min, max) {
   plots <- arrangeGrob(
-    # excess_codon_plot('both', 'TAA', min, max),
-    # excess_codon_plot('both', 'TAG', min, max),
-    # excess_codon_plot('both', 'TGA', min, max),
     excess_codon_plot(model, 1, 'TAA', min, max),
     excess_codon_plot(model, 1, 'TAG', min, max),
     excess_codon_plot(model, 1, 'TGA', min, max),
@@ -249,74 +201,28 @@ excess_individual_osc_plots <- function(model, min, max) {
   ggsave(file=paste('graphs/markov_models/', model, '_osc_individual_excesses_+1_+2.pdf', sep=''), plots, width=12, height=8)
 }
 
-
-
-# Vioplot of genomes GC content with significnat or not signincant excesses
-individual_codon_vioplot <- function(frame, codon, grouped=FALSE, count) {
-
-  file <- read.csv('outputs/simulation_synonymous_site_analysis/all_codons.csv', head=T)
-
-  col <- paste(codon, '_', frame, '_z', sep='')
-  pcol <- paste(codon, '_', frame, '_pval', sep='')
-
-  file$padj <- p.adjust(file[[pcol]], method="fdr")
-
-	file$sig <- ifelse(file$padj < 0.05 & file[[col]] > 0, 1, ifelse(file$padj < 0.05 & file[[col]] < 0, 2, 0))
-	file <- file[file$sig > 0,]
-
-  if(frame=="both"){
-    title <- paste('Both ', codon, sep='')
-  } else {
-    title <- paste('+', frame, ' ', codon, sep='')
-  }
-
-  library(ggplot2)
-  ggplot(file, aes(factor(sig), gc)) +
-    theme_Publication() +
-    geom_violin(aes(fill = factor(sig))) +
-    geom_boxplot(width=.1, outlier.colour=NA) +
-    scale_fill_manual(values=c('blue', 'red')) +
-		labs(y="GC", x='Z score (p < 0.05)') +
-    scale_x_discrete(labels=c('Z > 0', 'Z < 0')) +
-    theme(legend.position = "none")
-}
-
-# Plot the vioplots
-osc_vioplots <- function() {
-  plots <- arrangeGrob(
-    # individual_codon_vioplot('both', 'TAA'),
-    # individual_codon_vioplot('both', 'TAG'),
-    # individual_codon_vioplot('both', 'TGA'),
-    individual_codon_vioplot(1, 'TAA'),
-    individual_codon_vioplot(1, 'TAG'),
-    individual_codon_vioplot(1, 'TGA'),
-    individual_codon_vioplot(2, 'TAA'),
-    individual_codon_vioplot(2, 'TAG'),
-    individual_codon_vioplot(2, 'TGA'),
-    ncol=3
-  )
-
-  ggsave(file='graphs/simulation_synonymous_site/osc_individual_gc_vioplots.pdf', plots, width=12, height=8, device=cairo_pdf)
-}
-
 # Calculate the number of genomes with an excess of combined OSCs for the given frame
 combined_stops_excess <- function(model, frame) {
   filePath <- paste('outputs/mmodels_analysis/', model, '/combined_stops.csv', sep="")
   file <- read.csv(filePath, head=T)
+
 
   col <- paste('osc_', frame, '_z', sep='')
   pcol <- paste('osc_', frame, '_pval', sep='')
 
   file$padj <- p.adjust(file[[pcol]], method="fdr")
 
+
   cat('\n')
   print(frame)
   print(cor.test(file$gc, file[[col]], method="spearman"))
+  print('Excess')
+  print(nrow(file[file[[col]] > 0,]))
+  print(nrow(file[file[[col]] > 0 ,])/nrow(file)*100)
+  print('Significant excess')
   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,]))
   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,])/nrow(file)*100)
-
 }
-
 
 
 
@@ -337,24 +243,20 @@ all_codons_excess <- function(model, frame, codon) {
   print(frame)
   print(codon)
   print(cor.test(file$gc, file[[col]], method="spearman"))
+  print('Excess')
+  print(nrow(file[file[[col]] > 0,]))
+  print(nrow(file[file[[col]] > 0 ,])/nrow(file)*100)
+  print('Significant excess')
   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,]))
   print(nrow(file[file[[col]] > 0 & file$padj < 0.05,])/nrow(file)*100)
 }
 
 
-
-
-
-
 ## Run
 
-excess_ind_plots("23mm")
-excess_ind_plots("53mm")
 excess_plots("23mm", '53mm')
 excess_individual_osc_plots('23mm', get_min_z('23mm'), get_max_z('23mm'))
 excess_individual_osc_plots('53mm', get_min_z('53mm'), get_max_z('53mm'))
-
-osc_vioplots()
 
 sink('outputs/r_outputs/23mm_model.txt')
 combined_stops_excess('23mm', 'both')

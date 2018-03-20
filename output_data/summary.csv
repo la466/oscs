@@ -1,0 +1,23 @@
+file,description
+codon_shuffle_combined_stops,Output of analysis for codon shuffle model when stop codons are considered together.
+codon_shuffle_all_codons,Output of analysis for codon shuffle model for each individual codon.
+codon_shuffle_stats,Compiled stats regarding excesses for the codon shuffle model.
+synonymous_site_combined_stops,Output of analysis for synonymous site simulation model when stop codons are considered together.
+synonymous_site_all_codons,Output of analysis for synonymous site simulation model for each individual codon.
+synonymous_site_stats,Compiled stats regarding excesses for the synonymous site simulation model.
+synonymous_codon_combined_stops,Output of analysis for synonymous codon simulation model when stop codons are considered together.
+synonymous_codon_all_codons,Output of analysis for synonymous codon simulation model for each individual codon.
+synonymous_codon_stats,Compiled stats regarding excesses for the synonymous codon simulation model.
+aa_repeat_synonymous_sites,Output of analysis regarding amino acids repeats whose codons when repeated provide the opportunity to encode an OSC.
+osc_densities,Output of analysis for the comparison between table 4 and table 11 OSC densities.
+trna,Output of analysis for the tRNA analysis assessing in silico frameshift probabilites.
+compare_z,Comapre Z values between codon shuffle and synonymous site model for +1 OSCs.
+cai,Output of analysis for CAI.
+next_nt,Output of analysis for nucleotide following OSC.
+repeat_seligmann,Output of analysis for repeating Seligmann (2004) methods.
+23mm_combined_stops,Output of analysis for second order Markov chain model when stop codons are considered together.
+23mm_all_codons,Output of analysis for second order Markov chain model for each individual codon.
+23mm_stats,Compiled stats regarding excesses for the second order Markov chain model.
+53mm_combined_stops,Output of analysis for fifth order Markov chain model when stop codons are considered together.
+53mm_all_codons,Output of analysis for fifth order Markov chain model for each individual codon.
+53mm_stats,Compiled stats regarding excesses for the fifth order Markov chain model.

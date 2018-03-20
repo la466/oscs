@@ -6,7 +6,6 @@ rm(list=ls(all=TRUE))
 dir.create(file.path("graphs/trna/"), showWarnings = FALSE)
 dir.create(file.path("outputs/", "r_outputs/"), showWarnings = FALSE)
 
-
 theme_Publication <- function(base_size=14) {
   library(grid)
   library(ggthemes)
@@ -140,8 +139,8 @@ dev.off()
 library(gridExtra)
 library(cowplot)
 plots <- plot_grid(
-  cost_osc_density_correlation_plot("p1"),
   median_shift_probability_plot("p1"),
+  z_median_probability_plot('p1', 'ss'),
   ncol = 1, nrow = 2, labels = c("A", "B")
 )
 
@@ -152,8 +151,8 @@ compress_tiff(filepath)
 library(gridExtra)
 library(cowplot)
 plots <- plot_grid(
+  cost_osc_density_correlation_plot("p1"),
   z_median_probability_plot('p1', 'cs'),
-  z_median_probability_plot('p1', 'ss'),
   ncol = 1, nrow = 2, labels = c("A", "B")
 )
 
