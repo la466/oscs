@@ -1,0 +1,179 @@
+Tests between A use at sites 3/6 of codon repeats that can encode an OSC
+col1 = site 3 use, col2 = site 6 use
+
+
+==================================================
++1 TAA
+
+	Wilcoxon signed rank test with continuity correction
+
+data:  file[[col1]] and file[[col2]]
+V = 117210, p-value = 0.2152
+alternative hypothesis: true location shift is not equal to 0
+
+Mean site 3: 0.124757568513587
+Mean site 6: 0.116025758252268
+
+	Spearman's rank correlation rho
+
+data:  file$gc3 and file$ratio
+S = 54999000, p-value = 0.01183
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+        rho 
+-0.09719609 
+
+Number where site 3 > site 6: 352
+Prop where site 3 > site 6: 0.507204610951009
+
+==================================================
++1 TAG
+
+	Wilcoxon signed rank test with continuity correction
+
+data:  file[[col1]] and file[[col2]]
+V = 72676, p-value < 2.2e-16
+alternative hypothesis: true location shift is not equal to 0
+
+Mean site 3: 0.136600784251546
+Mean site 6: 0.155815527196098
+
+	Spearman's rank correlation rho
+
+data:  file$gc3 and file$ratio
+S = 88307000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.5851413 
+
+Number where site 3 > site 6: 182
+Prop where site 3 > site 6: 0.262247838616715
+
+==================================================
++2 TAA
+
+	Wilcoxon signed rank test with continuity correction
+
+data:  file[[col1]] and file[[col2]]
+V = 44611, p-value < 2.2e-16
+alternative hypothesis: true location shift is not equal to 0
+
+Mean site 3: 0.399600812853531
+Mean site 6: 0.469458521452731
+
+	Spearman's rank correlation rho
+
+data:  file$gc3 and file$ratio
+S = 90288000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.6418972 
+
+Number where site 3 > site 6: 186
+Prop where site 3 > site 6: 0.268011527377522
+
+==================================================
++2 TAG
+
+	Wilcoxon signed rank test with continuity correction
+
+data:  file[[col1]] and file[[col2]]
+V = 13478, p-value < 2.2e-16
+alternative hypothesis: true location shift is not equal to 0
+
+Mean site 3: 0.285618285138639
+Mean site 6: 0.417582792971719
+
+	Spearman's rank correlation rho
+
+data:  file$gc3 and file$ratio
+S = 91115000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.6355491 
+
+Number where site 3 > site 6: 76
+Prop where site 3 > site 6: 0.109510086455331
+
+==================================================
++2 TGA
+
+	Wilcoxon signed rank test with continuity correction
+
+data:  file[[col1]] and file[[col2]]
+V = 89276, p-value = 5.911e-09
+alternative hypothesis: true location shift is not equal to 0
+
+Mean site 3: 0.519782769852198
+Mean site 6: 0.550836610283048
+
+	Spearman's rank correlation rho
+
+data:  file$gc3 and file$ratio
+S = 84260000, p-value < 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.5125045 
+
+Number where site 3 > site 6: 302
+Prop where site 3 > site 6: 0.435158501440922
+
+==================================================
+
+Only allowing for A/T
+
+==================================================
++1 TAA
+
+	Wilcoxon signed rank test with continuity correction
+
+data:  file[[col1]] and file[[col2]]
+V = 157780, p-value < 2.2e-16
+alternative hypothesis: true location shift is not equal to 0
+
+Mean site 3: 0.277961340634728
+Mean site 6: 0.207584043155687
+
+	Spearman's rank correlation rho
+
+data:  file$gc3 and file$ratio
+S = 36350000, p-value = 4.827e-05
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.1601643 
+
+Number where site 3 > site 6: 475
+Prop where site 3 > site 6: 0.684438040345821
+
+==================================================
++1 TAG
+
+	Wilcoxon signed rank test with continuity correction
+
+data:  file[[col1]] and file[[col2]]
+V = 90860, p-value = 6.129e-05
+alternative hypothesis: true location shift is not equal to 0
+
+Mean site 3: 0.312524640365722
+Mean site 6: 0.329396355567012
+
+	Spearman's rank correlation rho
+
+data:  file$gc3 and file$ratio
+S = 60957000, p-value = 0.000177
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.1429026 
+
+Number where site 3 > site 6: 267
+Prop where site 3 > site 6: 0.384726224783862
+
+==================================================
+Combined P value test
+0.9995435
